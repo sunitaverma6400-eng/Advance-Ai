@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: stark-family-relay
+    runtime: python
+    plan: free
+    rootDir: relay
+    buildCommand: pip install -r requirements.txt
+    # ONE worker on purpose: key cooldown state must be shared between requests.
+    startCommand: gunicorn app:app --workers 1 --threads 8 --timeout 90 --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: APP_TOKEN
+        sync: false
+      - key: GROQ_KEYS
+        sync: false
+      - key: GEMINI_KEYS
+        sync: false
+      - key: OPENROUTER_KEYS
+        sync: false

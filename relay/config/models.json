@@ -1,0 +1,25 @@
+{
+  "_note": "Model names live here, never in code. Verify names in each provider console; a wrong/retired name is auto-skipped for 10 min (404 handling).",
+  "request": {
+    "timeout_s": 25,
+    "max_attempts_per_provider": 3,
+    "max_attempts_total": 8,
+    "temperature": 0.7,
+    "max_tokens": 900
+  },
+  "breaker": { "threshold": 6, "open_s": 60 },
+  "tiers": {
+    "fast": [
+      { "provider": "groq", "model": "llama-3.1-8b-instant" },
+      { "provider": "gemini", "model": "gemini-3.5-flash" },
+      { "provider": "openrouter", "model": "meta-llama/llama-3.3-70b-instruct:free" }
+    ],
+    "smart": [
+      { "provider": "gemini", "model": "gemini-3.5-flash" },
+      { "provider": "groq", "model": "llama-3.3-70b-versatile" },
+      { "provider": "gemini", "model": "gemini-3-flash-preview" },
+      { "provider": "openrouter", "model": "meta-llama/llama-3.3-70b-instruct:free" }
+    ]
+  },
+  "characters": { "jarvis": "smart", "vision": "fast" }
+}
